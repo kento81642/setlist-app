@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# nested repos (submodule として登録されていたが不要なため除外)
+/setlist-app/
+/portfailo_setlistmanagement/
