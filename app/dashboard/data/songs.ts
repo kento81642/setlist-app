@@ -1,28 +1,30 @@
-// マスター曲データの型
+// ─── 型定義 ───────────────────────────────────────────────────────────────────
+// bpm（数値）を廃止し、テンポをユーザーが直接選択する方式に変更。
+// BPM 計算は複雑で初心者には不要な概念のため、シンプルな3択にした。
+
 export type SongMaster = {
   id: string
   title: string
-  duration: string  // "3:45" 形式
-  bpm: number       // テンポ自動判定に使う
+  duration: string                          // "3:45" 形式
+  tempo: '遅め' | '普通' | '早め' | ''     // ユーザーが直接選ぶ
 }
 
-// ダミー曲リスト（後でAPIやDBに差し替える）
-export const MASTER_SONGS: SongMaster[] = [
-  { id: '1',  title: '夜に駆ける',    duration: '4:08', bpm: 130 },
-  { id: '2',  title: 'Pretender',     duration: '4:24', bpm: 96  },
-  { id: '3',  title: 'ドライフラワー', duration: '4:15', bpm: 86  },
-  { id: '4',  title: 'シルエット',    duration: '4:10', bpm: 168 },
-  { id: '5',  title: 'KICK BACK',    duration: '3:04', bpm: 175 },
-  { id: '6',  title: '残響散歌',      duration: '4:07', bpm: 185 },
-  { id: '7',  title: 'うっせぇわ',   duration: '3:04', bpm: 175 },
-  { id: '8',  title: '怪物',          duration: '3:29', bpm: 169 },
-  { id: '9',  title: 'ハルジオン',    duration: '5:08', bpm: 95  },
-  { id: '10', title: 'アイドル',      duration: '3:11', bpm: 170 },
-]
+// ─── localStorage キー ────────────────────────────────────────────────────────
 
-// BPM数値 → テンポラベルに変換するヘルパー関数
-export function getBpmLabel(bpm: number): '遅め' | '普通' | '早め' {
-  if (bpm < 100) return '遅め'
-  if (bpm < 160) return '普通'
-  return '早め'
+const SONG_LIBRARY_KEY = 'setlist_song_library'
+
+// ─── localStorage 読み書き ────────────────────────────────────────────────────
+
+export function loadSongLibrary(): SongMaster[] {
+  if (typeof window === 'undefined') return []
+  try {
+    const raw = localStorage.getItem(SONG_LIBRARY_KEY)
+    return raw ? (JSON.parse(raw) as SongMaster[]) : []
+  } catch {
+    return []
+  }
+}
+
+export function saveSongLibrary(songs: SongMaster[]): void {
+  localStorage.setItem(SONG_LIBRARY_KEY, JSON.stringify(songs))
 }

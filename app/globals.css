@@ -24,3 +24,63 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ─── アニメーション ──────────────────────────────────────────────────────── */
+
+/* コンテンツが下から浮かび上がるように表示する */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* イラストがゆっくり上下に浮く */
+@keyframes float {
+  0%,  100% { transform: translateY(0px);   }
+  50%        { transform: translateY(-14px); }
+}
+
+/* 自動保存の緑ドットが点滅する */
+@keyframes pulseDot {
+  0%,  100% { opacity: 1;   }
+  50%        { opacity: 0.2; }
+}
+
+.animate-fade-in-up  { animation: fadeInUp  0.45s ease-out both; }
+.animate-float       { animation: float     3.2s  ease-in-out infinite; }
+.animate-pulse-dot   { animation: pulseDot  2s    ease-in-out infinite; }
+
+/* ─── 印刷 / PDF 出力用スタイル ───────────────────────────────────────────── */
+
+/* 通常時は非表示・印刷時のみ表示 */
+.print-only {
+  display: none;
+}
+
+@media print {
+  /* 印刷時に不要な要素を隠す */
+  .no-print {
+    display: none !important;
+  }
+
+  /* 印刷時のみ表示 */
+  .print-only {
+    display: block !important;
+  }
+
+  /* ページ背景を白に */
+  body {
+    background: white !important;
+  }
+
+  /* テーブル内の input / select を「ただのテキスト」に見せる */
+  table input,
+  table select {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    outline: none !important;
+    padding: 2px 4px !important;
+  }
+}
