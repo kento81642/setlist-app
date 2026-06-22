@@ -1,10 +1,19 @@
-export default function Songs() {
+import { supabase } from "@/lib/supabase";
+
+export default async function Songs() {
+  const { data: songs } = await supabase.from("songs").select("*");
+
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-x1 shadow-md">
-        <h1 className="text-2x1 font-bold text-gray-800">曲一覧</h1>
-        <p className="text-gray-500 mt-2">登録した曲がここに表示されます</p>
-      </div>
-    </div>
+    <main className="min-h-screen bg-gray-100 p-6">
+      <h1 className="text-2xl font-bold text-gray-800 mb-4">曲一覧</h1>
+      <ul className="space-y-2">
+        {songs.map((song) => (
+          <li key={song.id} className="bg-white p-4 rounded-xl shadow-sm">
+            <p className="font-bold text-gray-800">{song.title}</p>
+            <p className="text-sm text-gray-500">{song.artist}</p>
+          </li>
+        ))}
+      </ul>
+    </main>
   );
 }
