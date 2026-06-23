@@ -8,36 +8,50 @@ export default function AddSongForm() {
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
+  const [type, setType] = useState("song");
   const router = useRouter();
 
   const handleAdd = async () => {
-    if (!title.trim() || !artist.trim()) {
+    if (type === "song" && (!title.trim() || !artist.trim())) {
       setError("曲名とアーティスト名を入力してください");
       return;
     }
     setError("");
-    await supabase.from("songs").insert({ title, artist });
+    await supabase.from("songs").insert({ title, artist, type });
     setTitle("");
     setArtist("");
+    setType("song");
     router.refresh();
   };
 
   return (
     <div className="bg-white p-4 rounded-xl shadow-sm mb-4">
       {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+
+      <select
+        value={type}
+        onChange={(e) => setType(e.target.value)}
+        className="border p-2 rounded mr-2"
+      >
+        <option value="song">曲</option>
+        <option value="mc">MC</option>
+      </select>
+
       <input
         type="text"
         placeholder="曲名"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="border p-2 rounded mr-2"
+        disabled={type === "mc"}
+        className={`border p-2 rounded mr-2 ${type === "mc" ? "bg-gray-500" : ""}`}
       />
       <input
         type="text"
         placeholder="アーティスト名"
         value={artist}
         onChange={(e) => setArtist(e.target.value)}
-        className="border p-2 rounded mr-2"
+        disabled={type === "mc"}
+        className={`border p-2 rounded mr-2 ${type === "mc" ? "bg-gray-500" : ""}`}
       />
       <button
         onClick={handleAdd}

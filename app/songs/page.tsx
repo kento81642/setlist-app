@@ -11,9 +11,20 @@ export default async function Songs() {
       <h1 className="text-2xl font-bold text-gray-800 mb-4">曲一覧</h1>
       <AddSongForm />
       <ul className="space-y-2">
-        {songs.map((song) => (
-          <li key={song.id} className="bg-white p-4 rounded-xl shadow-sm">
-            <EditSong id={song.id} title={song.title} artist={song.artist} />
+        {songs.map((song, index) => (
+          <li
+            key={song.id}
+            className={`p-4 rounded-xl shadow-sm flex items-center gap-3 ${index % 2 === 0 ? "bg-white" : "bg-blue-50"}`}
+          >
+            <span className="font-bold text-black p-5">{index + 1}</span>
+            <div className="flex-1">
+              <EditSong
+                id={song.id}
+                title={song.title}
+                artist={song.artist}
+                type={song.type}
+              />
+            </div>
           </li>
         ))}
       </ul>

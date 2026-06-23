@@ -7,11 +7,12 @@ import DeleteButton from "./DeleteButton";
 
 type Props = {
   id: number;
-  title: Text;
-  artist: Text;
+  title: string;
+  artist: string;
+  type: string;
 };
 
-export default function EditSong({ id, title, artist }: Props) {
+export default function EditSong({ id, title, artist, type }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(title);
   const [editArtist, seteditArtist] = useState(artist);
@@ -25,6 +26,15 @@ export default function EditSong({ id, title, artist }: Props) {
     setIsEditing(false);
     router.refresh();
   };
+
+  if (type === "mc") {
+    return (
+      <div className="flex items-center justify-between">
+        <p className="font-bold text-gray-600">MC</p>
+        <DeleteButton id={id} />
+      </div>
+    );
+  }
 
   if (isEditing) {
     return (
