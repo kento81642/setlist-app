@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import AddSongForm from "./AddSongForm";
 import DeleteButton from "./DeleteButton";
+import EditSong from "./EditSong";
 
 export default async function Songs() {
   const { data: songs } = await supabase.from("songs").select("*");
@@ -12,9 +13,7 @@ export default async function Songs() {
       <ul className="space-y-2">
         {songs.map((song) => (
           <li key={song.id} className="bg-white p-4 rounded-xl shadow-sm">
-            <p className="font-bold text-gray-800">{song.title}</p>
-            <p className="text-sm text-gray-500">{song.artist}</p>
-            <DeleteButton id={song.id} />
+            <EditSong id={song.id} title={song.title} artist={song.artist} />
           </li>
         ))}
       </ul>
