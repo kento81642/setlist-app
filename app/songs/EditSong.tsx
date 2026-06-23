@@ -29,7 +29,7 @@ export default function EditSong({ id, title, artist, type }: Props) {
 
   if (type === "mc") {
     return (
-      <div className="flex items-center justify-between">
+      <div className="items-center justify-between">
         <p className="font-bold text-gray-600">MC</p>
         <DeleteButton id={id} />
       </div>
