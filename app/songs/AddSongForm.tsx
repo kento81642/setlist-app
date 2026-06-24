@@ -16,6 +16,7 @@ export default function AddSongForm() {
       setError("曲名とアーティスト名を入力してください");
       return;
     }
+
     setError("");
     await supabase
       .from("songs")
@@ -27,40 +28,41 @@ export default function AddSongForm() {
   };
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-sm mb-4">
+    <div className="bg-white p-4 rounded-xl shadow-sm mb-6">
+      <div className="flex flex-wrap gap-2">
+        <select
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+          className="border p-2 rounded"
+        >
+          <option value="song">曲</option>
+          <option value="mc">MC</option>
+        </select>
+
+        <input
+          type="text"
+          placeholder="曲名"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          disabled={type === "mc"}
+          className={`border border-gray-300 p-2 rounded flex-1 min-w-0 ${type === "mc" ? "bg-gray-200" : ""}`}
+        />
+        <input
+          type="text"
+          placeholder="アーティスト名"
+          value={artist}
+          onChange={(e) => setArtist(e.target.value)}
+          disabled={type === "mc"}
+          className={`border border-gray-300 p-2 rounded flex-1 min-w-0 ${type === "mc" ? "bg-gray-200" : ""}`}
+        />
+        <button
+          onClick={handleAdd}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          追加
+        </button>
+      </div>
       {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-
-      <select
-        value={type}
-        onChange={(e) => setType(e.target.value)}
-        className="border p-2 rounded mr-2"
-      >
-        <option value="song">曲</option>
-        <option value="mc">MC</option>
-      </select>
-
-      <input
-        type="text"
-        placeholder="曲名"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        disabled={type === "mc"}
-        className={`border p-2 rounded mr-2 ${type === "mc" ? "bg-gray-500" : ""}`}
-      />
-      <input
-        type="text"
-        placeholder="アーティスト名"
-        value={artist}
-        onChange={(e) => setArtist(e.target.value)}
-        disabled={type === "mc"}
-        className={`border p-2 rounded mr-2 ${type === "mc" ? "bg-gray-500" : ""}`}
-      />
-      <button
-        onClick={handleAdd}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-      >
-        追加
-      </button>
     </div>
   );
 }

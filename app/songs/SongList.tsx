@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DndContext, closestCenter, DragEndEvent } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -8,6 +8,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import SortableItem from "./SortableItem";
+import { supabase } from "@/lib/supabase";
 
 type Song = {
   id: number;
@@ -24,14 +25,32 @@ type Props = {
 export default function SongList({ songs }: Props) {
   const [items, setItems] = useState(songs);
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  useEffect(() => {
+    setItems(songs);
+  }, [songs]);
+
+  const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
     if (over && active.id !== over.id) {
       const oldIndex = items.findIndex((s) => s.id === active.id);
       const newIndex = items.findIndex((s) => s.id === over.id);
-      setItems(arrayMove(items, oldIndex, newIndex));
+      const newItems = arrayMove(items, oldIndex, newIndex);
+      setItems(newItems);
+      await Promise.all(
+        newItems.map((song, index) =>
+          supabase.from("songs").update({ position: index }).eq("id", song.id),
+        ),
+      );
     }
   };
+
+  if (items.length === 0) {
+    return (
+      <p className="text-gray-500 text-center py-8 bg-white rounded-xl shadow-sm">
+        まだ曲がありません。上記フォームから追加してください。
+      </p>
+    );
+  }
 
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
