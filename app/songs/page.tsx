@@ -1,8 +1,10 @@
+import { connection } from "next/server";
 import { supabase } from "@/lib/supabase";
 import AddSongForm from "./AddSongForm";
 import SongList from "./SongList";
 
 export default async function Songs() {
+  await connection();
   const { data: songs } = await supabase
     .from("songs")
     .select("*")
