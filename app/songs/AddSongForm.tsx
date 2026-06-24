@@ -17,7 +17,9 @@ export default function AddSongForm() {
       return;
     }
     setError("");
-    await supabase.from("songs").insert({ title, artist, type });
+    await supabase
+      .from("songs")
+      .insert({ title, artist, type, position: Date.now() });
     setTitle("");
     setArtist("");
     setType("song");
