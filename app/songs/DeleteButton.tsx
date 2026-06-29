@@ -11,6 +11,7 @@ export default function DeleteButton({ id }: Props) {
   const router = useRouter();
 
   const handleDelete = async () => {
+    if (!window.confirm("本当に削除しますか?")) return;
     await supabase.from("songs").delete().eq("id", id);
     router.refresh();
   };
