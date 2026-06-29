@@ -52,18 +52,26 @@ export default function SongList({ songs }: Props) {
     );
   }
 
+  const songCount = items.filter((song) => song.type === "song").length;
+  const mcCount = items.filter((song) => song.type === "mc").length;
+
   return (
-    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <SortableContext
-        items={items.map((s) => s.id)}
-        strategy={verticalListSortingStrategy}
-      >
-        <ul className="space-y-2">
-          {items.map((song, index) => (
-            <SortableItem key={song.id} song={song} index={index} />
-          ))}
-        </ul>
-      </SortableContext>
-    </DndContext>
+    <>
+      <p className="text-sm text-green-500 mb-3">
+        楽曲{songCount}曲・MC{mcCount}回
+      </p>
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext
+          items={items.map((s) => s.id)}
+          strategy={verticalListSortingStrategy}
+        >
+          <ul className="space-y-2">
+            {items.map((song, index) => (
+              <SortableItem key={song.id} song={song} index={index} />
+            ))}
+          </ul>
+        </SortableContext>
+      </DndContext>
+    </>
   );
 }
