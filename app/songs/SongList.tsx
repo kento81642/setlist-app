@@ -9,6 +9,7 @@ import {
 } from "@dnd-kit/sortable";
 import SortableItem from "./SortableItem";
 import { supabase } from "@/lib/supabase";
+import CopyButton from "./CopyButton";
 
 type Song = {
   id: number;
@@ -60,6 +61,7 @@ export default function SongList({ songs }: Props) {
       <p className="text-sm text-green-500 mb-3">
         楽曲{songCount}曲・MC{mcCount}回
       </p>
+      <CopyButton songs={items} />
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext
           items={items.map((s) => s.id)}
