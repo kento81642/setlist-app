@@ -6,6 +6,7 @@ type Props = {
 
 type Song = {
   title: string;
+  type: string;
 };
 
 export default function CopyButton({ songs }: Props) {
@@ -14,7 +15,6 @@ export default function CopyButton({ songs }: Props) {
     .join("\n");
   const handleCopy = async () => {
     await navigator.clipboard.writeText(text);
-    console.log(text);
     alert("コピーしました");
   };
 
