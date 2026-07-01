@@ -10,15 +10,7 @@ import {
 import SortableItem from "./SortableItem";
 import { supabase } from "@/lib/supabase";
 import CopyButton from "./CopyButton";
-
-type Song = {
-  id: number;
-  title: string;
-  artist: string;
-  type: string;
-  position: number;
-  duration: number;
-};
+import { Song } from "./types";
 
 type Props = {
   songs: Song[];

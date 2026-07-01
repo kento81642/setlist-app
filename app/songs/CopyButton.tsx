@@ -1,12 +1,8 @@
 "use client";
+import { Song } from "./types";
 
 type Props = {
   songs: Song[];
-};
-
-type Song = {
-  title: string;
-  type: string;
 };
 
 export default function CopyButton({ songs }: Props) {

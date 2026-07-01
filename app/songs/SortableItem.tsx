@@ -3,15 +3,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import EditSong from "./EditSong";
-
-type Song = {
-  id: number;
-  title: string;
-  artist: string;
-  type: string;
-  position: number;
-  duration: number;
-};
+import { Song } from "./types";
 
 type Props = {
   song: Song;
