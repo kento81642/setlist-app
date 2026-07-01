@@ -10,18 +10,28 @@ type Props = {
   title: string;
   artist: string;
   type: string;
+  duration: number;
 };
 
-export default function EditSong({ id, title, artist, type }: Props) {
+export default function EditSong({ id, title, artist, type, duration }: Props) {
+  const minutes = Math.floor(duration / 60);
+  const seconds = duration % 60;
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(title);
-  const [editArtist, seteditArtist] = useState(artist);
+  const [editArtist, setEditArtist] = useState(artist);
+  const [editMinutes, setEditMinutes] = useState(String(minutes));
+  const [editSeconds, setEditSeconds] = useState(String(seconds));
+
   const router = useRouter();
 
   const handleSave = async () => {
     await supabase
       .from("songs")
-      .update({ title: editTitle, artist: editArtist })
+      .update({
+        title: editTitle,
+        artist: editArtist,
+        duration: Number(editMinutes) * 60 + Number(editSeconds),
+      })
       .eq("id", id);
     setIsEditing(false);
     router.refresh();
@@ -46,7 +56,17 @@ export default function EditSong({ id, title, artist, type }: Props) {
         />
         <input
           value={editArtist}
-          onChange={(e) => seteditArtist(e.target.value)}
+          onChange={(e) => setEditArtist(e.target.value)}
+          className="border p-2 rounded mr-2"
+        />
+        <input
+          value={editMinutes}
+          onChange={(e) => setEditMinutes(e.target.value)}
+          className="border p-2 rounded mr-2"
+        />
+        <input
+          value={editSeconds}
+          onChange={(e) => setEditSeconds(e.target.value)}
           className="border p-2 rounded mr-2"
         />
         <button

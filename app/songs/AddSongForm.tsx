@@ -10,7 +10,7 @@ export default function AddSongForm() {
   const [artist, setArtist] = useState("");
   const [type, setType] = useState("song");
   const [minutes, setMinutes] = useState("");
-  const [seconds, setSeconds] = useState("null");
+  const [seconds, setSeconds] = useState("");
   const router = useRouter();
 
   const handleAdd = async () => {
