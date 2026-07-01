@@ -44,6 +44,7 @@ export default function SortableItem({ song, index }: Props) {
           title={song.title}
           artist={song.artist}
           type={song.type}
+          duration={song.duration}
         />
       </div>
       {song.type === "song" && (
