@@ -10,6 +10,7 @@ type Song = {
   artist: string;
   type: string;
   position: number;
+  duration: number;
 };
 
 type Props = {
@@ -45,6 +46,11 @@ export default function SortableItem({ song, index }: Props) {
           type={song.type}
         />
       </div>
+      {song.type === "song" && (
+        <span className="text-base text-gray-500 mr-5">
+          {Math.floor(song.duration / 60)}分{song.duration % 60}秒
+        </span>
+      )}
     </li>
   );
 }
