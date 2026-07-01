@@ -17,6 +17,7 @@ type Song = {
   artist: string;
   type: string;
   position: number;
+  duration: number;
 };
 
 type Props = {
@@ -55,11 +56,15 @@ export default function SongList({ songs }: Props) {
 
   const songCount = items.filter((song) => song.type === "song").length;
   const mcCount = items.filter((song) => song.type === "mc").length;
+  const totalSeconds = items.reduce((sum, song) => sum + song.duration, 0);
+  const totalMinutes = Math.floor(totalSeconds / 60);
+  const remainingSeconds = totalSeconds % 60;
 
   return (
     <>
       <p className="text-sm text-green-500 mb-3">
-        楽曲{songCount}曲・MC{mcCount}回
+        楽曲{songCount}曲・MC{mcCount}回・合計{totalMinutes}分{remainingSeconds}
+        秒
       </p>
       <CopyButton songs={items} />
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>

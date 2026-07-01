@@ -9,6 +9,8 @@ export default function AddSongForm() {
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   const [type, setType] = useState("song");
+  const [minutes, setMinutes] = useState("");
+  const [seconds, setSeconds] = useState("null");
   const router = useRouter();
 
   const handleAdd = async () => {
@@ -18,12 +20,18 @@ export default function AddSongForm() {
     }
 
     setError("");
-    await supabase
-      .from("songs")
-      .insert({ title, artist, type, position: Date.now() });
+    await supabase.from("songs").insert({
+      title,
+      artist,
+      type,
+      position: Date.now(),
+      duration: 60 * Number(minutes) + Number(seconds),
+    });
     setTitle("");
     setArtist("");
     setType("song");
+    setMinutes("");
+    setSeconds("");
     router.refresh();
   };
 
@@ -52,6 +60,22 @@ export default function AddSongForm() {
           placeholder="アーティスト名"
           value={artist}
           onChange={(e) => setArtist(e.target.value)}
+          disabled={type === "mc"}
+          className={`border border-gray-300 p-2 rounded flex-1 min-w-0 ${type === "mc" ? "bg-gray-200" : ""}`}
+        />
+        <input
+          type="number"
+          placeholder="分"
+          value={minutes}
+          onChange={(e) => setMinutes(e.target.value)}
+          disabled={type === "mc"}
+          className={`border border-gray-300 p-2 rounded flex-1 min-w-0 ${type === "mc" ? "bg-gray-200" : ""}`}
+        />
+        <input
+          type="number"
+          placeholder="秒"
+          value={seconds}
+          onChange={(e) => setSeconds(e.target.value)}
           disabled={type === "mc"}
           className={`border border-gray-300 p-2 rounded flex-1 min-w-0 ${type === "mc" ? "bg-gray-200" : ""}`}
         />
