@@ -9,6 +9,7 @@ export default function AddSongForm() {
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   const [type, setType] = useState("song");
+  const [bpm, setBpm] = useState("");
   const [minutes, setMinutes] = useState("");
   const [seconds, setSeconds] = useState("");
   const router = useRouter();
@@ -24,12 +25,14 @@ export default function AddSongForm() {
       title,
       artist,
       type,
+      bpm: Number(bpm),
       position: Date.now(),
       duration: 60 * Number(minutes) + Number(seconds),
     });
     setTitle("");
     setArtist("");
     setType("song");
+    setBpm("");
     setMinutes("");
     setSeconds("");
     router.refresh();
@@ -76,6 +79,14 @@ export default function AddSongForm() {
           placeholder="秒"
           value={seconds}
           onChange={(e) => setSeconds(e.target.value)}
+          disabled={type === "mc"}
+          className={`border border-gray-300 p-2 rounded flex-1 min-w-0 ${type === "mc" ? "bg-gray-200" : ""}`}
+        />
+        <input
+          type="number"
+          placeholder="BPM"
+          value={bpm}
+          onChange={(e) => setBpm(e.target.value)}
           disabled={type === "mc"}
           className={`border border-gray-300 p-2 rounded flex-1 min-w-0 ${type === "mc" ? "bg-gray-200" : ""}`}
         />

@@ -88,7 +88,7 @@ export default function EditSong({ id, title, artist, type, duration }: Props) {
   return (
     <div>
       <p className="font-bold text-gray-800">{title}</p>
-      <p className="text-sm text-gray-500">{artist}</p>ed
+      <p className="text-sm text-gray-500">{artist}</p>
       <button
         onClick={() => setIsEditing(true)}
         className="text-blue-500 text-sm mr-2"
