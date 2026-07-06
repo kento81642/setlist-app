@@ -4,6 +4,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import EditSong from "./EditSong";
 import { Song } from "./types";
+import RequestText from "./RequestText";
 
 type Props = {
   song: Song;
@@ -24,13 +25,13 @@ export default function SortableItem({ song, index }: Props) {
       ref={setNodeRef}
       style={style}
       {...attributes}
-      className={`p-4 rounded-xl shadow-sm flex items-center gap-3 ${index % 2 === 0 ? "bg-white" : "bg-blue-50"}`}
+      className={`p-4 rounded-xl shadow-sm flex  items-center gap-3 ${index % 2 === 0 ? "bg-white" : "bg-blue-50"}`}
     >
       <span {...listeners} className="cursor-grab text-gray-400 select-none">
         ⠿
       </span>
       <span className="font-bold text-black p-2">{index + 1}</span>
-      <div className="flex-1">
+      <div className="flex-1 ">
         <EditSong
           id={song.id}
           title={song.title}
@@ -53,6 +54,11 @@ export default function SortableItem({ song, index }: Props) {
       {song.bpm >= 170 && (
         <span className="text-base text-gray-500 mr-5">テンポ：速い</span>
       )}
+      <RequestText
+        id={song.id}
+        lightText={song.lightText}
+        paText={song.paText}
+      />
     </li>
   );
 }

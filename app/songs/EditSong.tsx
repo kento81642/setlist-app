@@ -91,7 +91,7 @@ export default function EditSong({ id, title, artist, type, duration }: Props) {
       <p className="text-sm text-gray-500">{artist}</p>
       <button
         onClick={() => setIsEditing(true)}
-        className="text-blue-500 text-sm mr-2"
+        className="text-blue-500 text-sm mr-2 cursor-pointer"
       >
         編集
       </button>

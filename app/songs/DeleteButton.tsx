@@ -17,7 +17,10 @@ export default function DeleteButton({ id }: Props) {
   };
 
   return (
-    <button onClick={handleDelete} className="text-red-500 text-sm">
+    <button
+      onClick={handleDelete}
+      className="text-red-500 text-sm cursor-pointer "
+    >
       削除
     </button>
   );
