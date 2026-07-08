@@ -25,13 +25,13 @@ export default function SortableItem({ song, index }: Props) {
       ref={setNodeRef}
       style={style}
       {...attributes}
-      className={`p-4 rounded-xl shadow-sm flex  items-center gap-3 ${index % 2 === 0 ? "bg-white" : "bg-blue-50"}`}
+      className={`p-4 rounded-xl shadow-sm flex items-center gap-3 ${index % 2 === 0 ? "bg-white" : "bg-blue-50"}`}
     >
       <span {...listeners} className="cursor-grab text-gray-400 select-none">
         ⠿
       </span>
       <span className="font-bold text-black p-2">{index + 1}</span>
-      <div className="flex-1 ">
+      <div className="flex-1">
         <EditSong
           id={song.id}
           title={song.title}

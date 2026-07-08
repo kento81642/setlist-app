@@ -18,7 +18,7 @@ export default function RequestText({ id, lightText, paText }: Props) {
 
   const router = useRouter();
 
-  const lightTextHandleSave = async () => {
+  const handleLightSave = async () => {
     await supabase
       .from("songs")
       .update({
@@ -29,7 +29,7 @@ export default function RequestText({ id, lightText, paText }: Props) {
     router.refresh();
   };
 
-  const paTextHandleSave = async () => {
+  const handlePaSave = async () => {
     await supabase
       .from("songs")
       .update({
@@ -50,7 +50,7 @@ export default function RequestText({ id, lightText, paText }: Props) {
           className="border p-2 rounded mr-2"
         />
         <button
-          onClick={lightTextHandleSave}
+          onClick={handleLightSave}
           className="bg-gray-400 text-white px-3 py-1 rounded"
         >
           保存
@@ -75,7 +75,7 @@ export default function RequestText({ id, lightText, paText }: Props) {
           className="border p-2 rounded mr-2"
         />
         <button
-          onClick={paTextHandleSave}
+          onClick={handlePaSave}
           className="bg-gray-400 text-white px-3 py-1 rounded"
         >
           保存
