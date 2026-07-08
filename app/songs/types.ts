@@ -6,4 +6,6 @@ export type Song = {
   bpm: number;
   position: number;
   duration: number;
+  lightText: string;
+  paText: string;
 };
