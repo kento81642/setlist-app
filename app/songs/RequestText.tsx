@@ -11,8 +11,8 @@ type Props = {
 };
 
 export default function RequestText({ id, lightText, paText }: Props) {
-  const [editLightText, setEditLightText] = useState("");
-  const [editPaText, setEditPaText] = useState("");
+  const [editLightText, setEditLightText] = useState(lightText ?? "");
+  const [editPaText, setEditPaText] = useState(paText ?? "");
   const [lightTextIsEditing, setLightTextIsEditing] = useState(false);
   const [paTextIsEditing, setPaTextIsEditing] = useState(false);
 
