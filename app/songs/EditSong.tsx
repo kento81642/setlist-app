@@ -11,14 +11,23 @@ type Props = {
   artist: string;
   type: string;
   duration: number;
+  bpm: number;
 };
 
-export default function EditSong({ id, title, artist, type, duration }: Props) {
+export default function EditSong({
+  id,
+  title,
+  artist,
+  type,
+  duration,
+  bpm,
+}: Props) {
   const minutes = Math.floor(duration / 60);
   const seconds = duration % 60;
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(title);
   const [editArtist, setEditArtist] = useState(artist);
+  const [editBpm, setEditBpm] = useState(String(bpm));
   const [editMinutes, setEditMinutes] = useState(String(minutes));
   const [editSeconds, setEditSeconds] = useState(String(seconds));
 
@@ -31,6 +40,7 @@ export default function EditSong({ id, title, artist, type, duration }: Props) {
         title: editTitle,
         artist: editArtist,
         duration: Number(editMinutes) * 60 + Number(editSeconds),
+        bpm: Number(editBpm),
       })
       .eq("id", id);
     setIsEditing(false);
@@ -49,26 +59,46 @@ export default function EditSong({ id, title, artist, type, duration }: Props) {
   if (isEditing) {
     return (
       <div>
-        <input
-          value={editTitle}
-          onChange={(e) => setEditTitle(e.target.value)}
-          className="border p-2 rounded mr-2"
-        />
-        <input
-          value={editArtist}
-          onChange={(e) => setEditArtist(e.target.value)}
-          className="border p-2 rounded mr-2"
-        />
-        <input
-          value={editMinutes}
-          onChange={(e) => setEditMinutes(e.target.value)}
-          className="border p-2 rounded mr-2"
-        />
-        <input
-          value={editSeconds}
-          onChange={(e) => setEditSeconds(e.target.value)}
-          className="border p-2 rounded mr-2"
-        />
+        <label className="mr-2">
+          曲名：
+          <input
+            value={editTitle}
+            onChange={(e) => setEditTitle(e.target.value)}
+            className="border p-2 rounded mr-2"
+          />
+        </label>
+        <label className="mr-2">
+          アーティスト名：
+          <input
+            value={editArtist}
+            onChange={(e) => setEditArtist(e.target.value)}
+            className="border p-2 rounded mr-2"
+          />
+        </label>
+        <label className="mr-2">
+          分：
+          <input
+            value={editMinutes}
+            onChange={(e) => setEditMinutes(e.target.value)}
+            className="border p-2 rounded mr-2"
+          />
+        </label>
+        <label className="mr-2">
+          秒：
+          <input
+            value={editSeconds}
+            onChange={(e) => setEditSeconds(e.target.value)}
+            className="border p-2 rounded mr-2"
+          />
+        </label>
+        <label className="mr-2">
+          BPM：
+          <input
+            value={editBpm}
+            onChange={(e) => setEditBpm(e.target.value)}
+            className="border p-2 rounded mr-2"
+          />
+        </label>
         <button
           onClick={handleSave}
           className="bg-blue-500 text-white px-3 py-1 rounded mr-2"

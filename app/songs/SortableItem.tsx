@@ -38,6 +38,7 @@ export default function SortableItem({ song, index }: Props) {
           artist={song.artist}
           type={song.type}
           duration={song.duration}
+          bpm={song.bpm}
         />
       </div>
       {song.type === "song" && (
@@ -46,13 +47,19 @@ export default function SortableItem({ song, index }: Props) {
         </span>
       )}
       {song.bpm >= 60 && song.bpm <= 120 && (
-        <span className="text-base text-gray-500 mr-5">テンポ：遅い</span>
+        <span className="text-base text-gray-500 mr-5">
+          テンポ：遅い（BPM：{song.bpm}）
+        </span>
       )}
       {song.bpm >= 121 && song.bpm <= 169 && (
-        <span className="text-base text-gray-500 mr-5">テンポ：普通</span>
+        <span className="text-base text-gray-500 mr-5">
+          テンポ：普通（BPM：{song.bpm}）
+        </span>
       )}
       {song.bpm >= 170 && (
-        <span className="text-base text-gray-500 mr-5">テンポ：速い</span>
+        <span className="text-base text-gray-500 mr-5">
+          テンポ：速い（BPM：{song.bpm}）
+        </span>
       )}
       <RequestText
         id={song.id}
