@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { useToastStore } from "@/lib/toastStore";
 
 export default function AddSongForm() {
   const [error, setError] = useState("");
@@ -12,6 +13,7 @@ export default function AddSongForm() {
   const [bpm, setBpm] = useState("");
   const [minutes, setMinutes] = useState("");
   const [seconds, setSeconds] = useState("");
+  const showToast = useToastStore((s) => s.showToast);
   const router = useRouter();
 
   const handleAdd = async () => {
@@ -36,6 +38,7 @@ export default function AddSongForm() {
     setMinutes("");
     setSeconds("");
     router.refresh();
+    showToast("追加しました ✓");
   };
 
   return (
